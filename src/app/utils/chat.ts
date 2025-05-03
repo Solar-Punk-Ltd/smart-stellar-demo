@@ -1,4 +1,4 @@
-import { Client } from '../../../chat-demo-sdk/dist';
+import { Client } from 'chat-demo-sdk';
 
 export const chat = new Client({
     rpcUrl: process.env.NEXT_PUBLIC_RPC_URL!,
