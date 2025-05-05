@@ -69,7 +69,7 @@ export default function Welcome() {
                 uniqueMap.set(item[key], item);
             }
 
-            let sortedUniqueMap = Array.from(uniqueMap.values()).sort(
+            const sortedUniqueMap = Array.from(uniqueMap.values()).sort(
                 (a, b) => a.timestamp.getTime() - b.timestamp.getTime(),
             );
 
