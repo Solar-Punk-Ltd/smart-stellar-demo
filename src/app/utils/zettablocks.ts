@@ -14,6 +14,7 @@ export function getMessages() {
                     records {
                         id
                         topic
+                        topic_raw
                         value
                         ledger_closed_at
                         transaction_hash
@@ -36,7 +37,7 @@ export function getMessages() {
             return {
                 id: record.id,
                 addr: scValToNative(
-                    xdr.ScVal.fromXDR(record.topic, "base64"),
+                    xdr.ScVal.fromXDR(record.topic_raw, "base64"),
                 ),
                 timestamp: new Date(record.ledger_closed_at), // 2024-12-17 22:19:36.000000 UTC
                 txHash: record.transaction_hash,
