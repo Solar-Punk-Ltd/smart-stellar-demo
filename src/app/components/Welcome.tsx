@@ -60,20 +60,20 @@ export default function Welcome() {
     ) {
         msgs = await getEvents(msgs, limit, found);
 
-        msgs = msgs.sort(
-            (a, b) => a.timestamp.getTime() - b.timestamp.getTime(),
-        );
-
         setMessages(messages => {
             const mergedArray = [...messages, ...msgs];
             const uniqueMap = new Map();
             const key = 'id';
-
-            for (const obj of mergedArray) {
-                uniqueMap.set(key as keyof typeof obj, obj);
+              
+            for (const item of mergedArray) {
+                uniqueMap.set(item[key], item);
             }
 
-            return Array.from(uniqueMap.values());
+            let sortedUniqueMap = Array.from(uniqueMap.values()).sort(
+                (a, b) => a.timestamp.getTime() - b.timestamp.getTime(),
+            );
+
+            return sortedUniqueMap;
         });
     }
 
@@ -118,4 +118,3 @@ export default function Welcome() {
         </div>
     )
 }
-
