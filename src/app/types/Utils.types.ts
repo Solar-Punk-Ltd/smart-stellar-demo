@@ -9,6 +9,7 @@ export interface ChatEvent {
 export interface ZBQuery {
     id: string;
     topic: string;
+    topic_raw: string;
     value: string;
     ledger_closed_at: string;
     transaction_hash: string;
