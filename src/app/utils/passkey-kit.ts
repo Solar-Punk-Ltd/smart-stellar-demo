@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { PasskeyKit, PasskeyServer } from "@solarpunkltd/passkey-kit";
 
 export const account = new PasskeyKit({

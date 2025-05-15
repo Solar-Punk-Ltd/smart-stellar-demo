@@ -4,13 +4,14 @@ import Header from "./components/Header";
 import Welcome from "./components/Welcome";
 
 import { AuthProvider } from "@solarpunkltd/passkey";
-import { PassKey, useAuthStore } from "./store/auth";
+import { useAuthStore } from "./store/auth";
+import { Key } from "@solarpunkltd/passkey-kit";
 
 export default function Home() {
   const showAuth = useAuthStore((state) => state.showAuth);
   const setPassKey = useAuthStore((state) => state.setPassKey);
 
-  const onCreate = (passKey: PassKey) => {
+  const onCreate = (passKey: Key) => {
     setPassKey(passKey);
   };
 

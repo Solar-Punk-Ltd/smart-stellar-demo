@@ -1,9 +1,10 @@
 import { create } from "zustand";
-import {PassKey} from "@solarpunkltd/passkey"
+import { Key } from '@solarpunkltd/passkey-kit';
+
 
 interface State {
   showAuth: boolean;
-  passKey: PassKey | null;
+  passKey: Key | null;
 }
 
 interface Actions {

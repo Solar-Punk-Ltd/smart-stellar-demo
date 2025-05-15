@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
     "passkey-kit-sdk",
     "sac-sdk",
     "@solarpunkltd/passkey",
+    "@solarpunkltd/passkey-kit",
   ],
   output: "standalone",
 };
