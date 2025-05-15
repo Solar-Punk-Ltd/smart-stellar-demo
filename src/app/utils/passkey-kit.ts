@@ -1,11 +1,13 @@
 "use client";
-import { PasskeyKit, PasskeyServer } from "passkey-kit";
+import { PasskeyKit, PasskeyServer } from "@solarpunkltd/passkey-kit";
 
 export const account = new PasskeyKit({
   rpcUrl: process.env.NEXT_PUBLIC_RPC_URL!,
   networkPassphrase: process.env.NEXT_PUBLIC_NETWORK_PASSPHRASE!,
   walletWasmHash: process.env.NEXT_PUBLIC_WALLET_WASM_HASH!,
   timeoutInSeconds: 30,
+  challenge: 'randomchallenge',
+  seed: 'randomseed',
 });
 
 export const server = new PasskeyServer({

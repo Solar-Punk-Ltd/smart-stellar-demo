@@ -1,11 +1,5 @@
 import { create } from "zustand";
-
-export interface PassKey {
-  name: string;
-  keyId: Buffer;
-  keyIdBase64: string;
-  publicKey: Buffer;
-}
+import {PassKey} from "@solarpunkltd/passkey"
 
 interface State {
   showAuth: boolean;
