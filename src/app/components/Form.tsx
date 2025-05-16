@@ -3,7 +3,7 @@ import {useKeyIdStore} from '../store/keyId';
 import {useContractIdStore} from '../store/contractId';
 import { chat } from "../utils/chat";
 import { account, server } from "../utils/passkey-kit";
-import { getStoredPublicKeys, signWithStoredKey } from '../utils/keypairUtils';
+import { generateAndStoreKeypair, getStoredPublicKeys, signWithStoredKey } from '../utils/keypairUtils';
 import { SignerStore } from '@solarpunkltd/passkey-kit';
 
 let sending = false;
@@ -33,20 +33,46 @@ export default function MessageForm() {
                 msg,
             });
 
-            if (!sessionKey) {
-                const { publicKey } = (await getStoredPublicKeys())[0];
+            const storedKeys = await getStoredPublicKeys();
+            console.log("Stored keys:", storedKeys);
+            if (storedKeys.length < 1) {
+                console.log("No stored keys found, creating new key");
+                const initSessionKey = async () => {
+                    console.log('Initializing Stellar session key...');
+                    try {
+                      // Check if we already have a session key
+                      const existingKeys = await getStoredPublicKeys();
+                      console.log('Existing session keys:', existingKeys);
+              
+                      if (existingKeys.length === 0) {
+                        console.log('No session key found, generating new one...');
+                        const publicKey = await generateAndStoreKeypair();
+                        console.log('Generated and stored new session key with public key:', publicKey);
+                      } else {
+                        console.log('Using existing session key with public key:', existingKeys[0].publicKey);
+                      }
+                    } catch (error) {
+                      console.error('Error initializing Stellar session key:', error);
+                    }
+                  };
+              
+                await initSessionKey();
+                const storedKeys = await getStoredPublicKeys();
+                console.log("Stored keys after init:", storedKeys);
+
                 const { sequence } = await account.rpc.getLatestLedger()
-                const at = await account.addEd25519(publicKey, undefined, SignerStore.Temporary, sequence + 36000);
-    
-                await account.sign(at, { keyId: formKeyId });
-                const res = await server.send(at.built!);
+                const kat = await account.addEd25519(storedKeys[0].publicKey, undefined, SignerStore.Temporary, sequence + 360000);
+
+                await account.sign(kat, { keyId: formKeyId });
+                const res = await server.send(kat);
                 console.log(res);
+                sessionKey = res.keyId;
             }
 
-            const storedKeys = await getStoredPublicKeys();
             if (storedKeys.length > 0) {
-                // Use the first stored key for signing
                 at = await signWithStoredKey(storedKeys[0].id, at);
+                console.log("Signed with stored key");
+                console.log(at);
             } else {
                 at = await account.sign(at, { keyId: formKeyId });
             }

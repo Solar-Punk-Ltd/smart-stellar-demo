@@ -1,5 +1,6 @@
 import { Keypair } from '@stellar/stellar-sdk';
 import { server } from './passkey-kit';
+import { account } from './passkey-kit';
 
 // Initialize IndexedDB
 const DB_NAME = 'StellarSessionStore';
@@ -80,11 +81,9 @@ export const signWithStoredKey = async (keyId: string, transaction: any): Promis
           const keypair = Keypair.fromSecret(data.privateKey);
           
           // Sign the transaction
-          transaction.sign(keypair);
-          
-          // Send the signed transaction using your server utility
-          const response = await server.send(transaction);
-          resolve(response);
+          await account.sign(transaction, {keypair});
+
+          resolve(transaction);
         } catch (error) {
           reject(error);
         }
