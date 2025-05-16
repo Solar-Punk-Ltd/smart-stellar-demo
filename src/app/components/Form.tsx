@@ -69,12 +69,15 @@ export default function MessageForm() {
                 sessionKey = res.keyId;
             }
 
-            if (storedKeys.length > 0) {
-                at = await signWithStoredKey(storedKeys[0].id, at);
+            const storedKeys2 = await getStoredPublicKeys();
+            if (storedKeys2.length > 0) {
+                at = await signWithStoredKey(storedKeys2[0].id, at);
                 console.log("Signed with stored key");
                 console.log(at);
             } else {
                 at = await account.sign(at, { keyId: formKeyId });
+                console.error("Signed with key");
+                console.error(at);
             }
 
             await server.send(at);
