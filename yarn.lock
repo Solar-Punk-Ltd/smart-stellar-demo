@@ -431,10 +431,10 @@
   resolved "https://registry.yarnpkg.com/@simplewebauthn/types/-/types-12.0.0.tgz#9b2ba09dfd951747f81dde0f77c6e34b7ac7f8a6"
   integrity sha512-q6y8MkoV8V8jB4zzp18Uyj2I7oFp2/ONL8c3j8uT06AOWu3cIChc1au71QYHrP2b+xDapkGTiv+9lX7xkTlAsA==
 
-"@solarpunkltd/passkey-kit@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@solarpunkltd/passkey-kit/-/passkey-kit-0.0.4.tgz#ff36c7b4c373e5d8550fe6959dff0bd50c79ef6e"
-  integrity sha512-wLcx2em0FxDHq5kAXCH4SYxnNRI7hhgRLohQICX1ujj+Q0LVF/Qk8Tp16ALXsdqebEaRd44r6iLu+iHrM/yS4Q==
+"@solarpunkltd/passkey-kit@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@solarpunkltd/passkey-kit/-/passkey-kit-0.0.5.tgz#be4c8a1e5ffc85f29053379a162eaf1514544ee8"
+  integrity sha512-WZbZ5CqrTIqpPPQJInD3cOa+jYcIK1UPlD0LCRXwEG6U5Z6fzLLhPidnMvtCAkVP/OwCsWP2qZjIQhvoHWRzUQ==
   dependencies:
     "@simplewebauthn/browser" "^13.1.0"
     "@stellar/stellar-sdk" "^13.3.0"
@@ -443,14 +443,14 @@
     passkey-kit-sdk "workspace:*"
     sac-sdk "workspace:*"
 
-"@solarpunkltd/passkey@^0.4.3":
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/@solarpunkltd/passkey/-/passkey-0.4.3.tgz#c92aa125364a773ddd618f51b3669c51abb91f01"
-  integrity sha512-px0Bidd1XSmptm7aV6N83y5zFh1qL49pmA7RiwOshuVlvcP32hAFNyWWuOZIYnzN9ofpRvCg05y/pXJ+ijLMKQ==
+"@solarpunkltd/passkey@^0.4.4":
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/@solarpunkltd/passkey/-/passkey-0.4.4.tgz#2bc7caa51bb9837e0d258747fdcb83908dffc2f1"
+  integrity sha512-IXWYVoc6kfhpPUXCnOnlmyFVAmCZ3TpvLS4m9haurgEornYmheaQ7PR9xha3MfGJnWP7WsyxdNBNBNyGISFYRA==
   dependencies:
     "@simplewebauthn/browser" "^13.1.0"
     "@simplewebauthn/types" "^12.0.0"
-    "@solarpunkltd/passkey-kit" "^0.0.4"
+    "@solarpunkltd/passkey-kit" "^0.0.5"
     "@stellar/design-system" "^3.1.1"
     "@stellar/stellar-sdk" "^13.3.0"
     base64url "^3.0.1"
@@ -490,7 +490,7 @@
   optionalDependencies:
     sodium-native "^4.3.3"
 
-"@stellar/stellar-sdk@^13.2.0", "@stellar/stellar-sdk@^13.3.0":
+"@stellar/stellar-sdk@^13.3.0":
   version "13.3.0"
   resolved "https://registry.yarnpkg.com/@stellar/stellar-sdk/-/stellar-sdk-13.3.0.tgz#72bf3eea4797de053aaebb889bf4de342d0b6b54"
   integrity sha512-8+GHcZLp+mdin8gSjcgfb/Lb6sSMYRX6Nf/0LcSJxvjLQR0XHpjGzOiRbYb2jSXo51EnA6kAV5j+4Pzh5OUKUg==
@@ -1180,7 +1180,7 @@ chalk@^4.0.0:
 "chat-demo-sdk@file:./chat-demo-sdk":
   version "0.0.0"
   dependencies:
-    "@stellar/stellar-sdk" "^13.2.0"
+    "@stellar/stellar-sdk" "^13.3.0"
     buffer "^6.0.3"
 
 chownr@^3.0.0:

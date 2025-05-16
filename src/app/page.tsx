@@ -9,10 +9,10 @@ import { Key } from "@solarpunkltd/passkey-kit";
 
 export default function Home() {
   const showAuth = useAuthStore((state) => state.showAuth);
-  const setPassKey = useAuthStore((state) => state.setPassKey);
+  const setKey = useAuthStore((state) => state.setKey);
 
-  const onCreate = (passKey: Key) => {
-    setPassKey(passKey);
+  const onCreate = (key: Key) => {
+    setKey(key);
   };
 
   return (

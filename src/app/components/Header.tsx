@@ -1,22 +1,21 @@
 "use client";
 import React, { useEffect } from "react";
 import Link from "next/link";
-// import { account, server } from "../utils/passkey-kit";
+import { account } from "../utils/passkey-kit";
 import { useKeyIdStore } from "../store/keyId";
 import { useContractIdStore } from "../store/contractId";
 import { truncate } from "../utils/base";
 import { useAuthStore } from "../store/auth";
 
 export default function Header() {
-  // const [creating, setCreating] = useState(false);
 
   const contractId = useContractIdStore((state) => state.contractId);
   const updateContractId = useContractIdStore((state) => state.setContractId);
 
-  //const keyId = useKeyIdStore((state) => state.keyId)
   const updateKeyId = useKeyIdStore((state) => state.setKeyId);
 
   const updateShowAuth = useAuthStore((state) => state.setShowAuth);
+  const key = useAuthStore((state) => state.key);
 
   useEffect(() => {
     if (localStorage.hasOwnProperty("ssd:keyId")) {
@@ -27,39 +26,14 @@ export default function Header() {
   }, []);
 
 
-  // async function signUp() {
-  //   setCreating(true);
-
-  //   try {
-  //     const {
-  //       keyIdBase64,
-  //       contractId: cid,
-  //       signedTx,
-  //     } = await account.createWallet(
-  //       "Smart Stellar Demo",
-  //       "Smart Stellar Demo User"
-  //     );
-
-  //     await server.send(signedTx);
-
-  //     updateKeyId(keyIdBase64);
-  //     localStorage.setItem("ssd:keyId", keyIdBase64);
-
-  //     updateContractId(cid);
-  //   } finally {
-  //     setCreating(false);
-  //   }
-  // }
-
   async function login() {
     updateShowAuth(true);
-    // const { keyIdBase64, contractId: cid } = await account.connectWallet();
 
-    // updateKeyId(keyIdBase64);
-    // localStorage.setItem("ssd:keyId", keyIdBase64);
-
-    // updateContractId(cid);
+    if (key) {
+      await account.connectWallet(key.keyId);
+    }
   }
+
 
   async function logout() {
     updateContractId("");
