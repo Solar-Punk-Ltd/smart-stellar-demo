@@ -6,7 +6,6 @@ import { useKeyIdStore } from "../store/keyId";
 import { useContractIdStore } from "../store/contractId";
 import { truncate } from "../utils/base";
 import { useAuthStore } from "../store/auth";
-import { Key } from "@solarpunkltd/passkey-kit";
 
 export default function Header() {
   const contractId = useContractIdStore((state) => state.contractId);
@@ -17,40 +16,29 @@ export default function Header() {
   const updateShowAuth = useAuthStore((state) => state.setShowAuth);
   const key = useAuthStore((state) => state.key);
 
-  const saveKey = (key: Key, contractId: string) => {
-    updateKeyId(key.keyIdBase64);
-    localStorage.setItem("ssd:keyId", key.keyIdBase64);
-    updateContractId(contractId);
-  };
-
-  useEffect(() => {
-    if (localStorage.hasOwnProperty("ssd:keyId")) {
-      updateKeyId(localStorage.getItem("ssd:keyId")!);
-    }
-
-    return () => {};
-  }, []);
 
   useEffect(() => {
     if (key) {
-      account.connectWallet(key.keyId).then((cid) => {
-        const contractId = cid;
-
+      console.log("bagyo key", key);
+      account.connectWallet(key.keyIdBase64).then((contractId) => {
         if (!contractId) {
           account
             .createWallet(key)
             .then((res) => {
               console.log("Create try:", res);
-              saveKey(key, res.contractId);
+              updateKeyId(key.keyIdBase64);
               server.send(res.signedTx).then(() => {
-                saveKey(key, res.contractId);
+                console.log("send ok");
+                updateContractId(res.contractId);
               });
             })
             .catch((err) => {
               console.error("Error creating wallet:", err);
             });
         } else {
-          saveKey(key, contractId);
+          console.log("bagoy keyId", key.keyIdBase64);
+          console.log("bagoy contractId", contractId);
+          updateKeyId(key.keyIdBase64);
         }
       });
     }
