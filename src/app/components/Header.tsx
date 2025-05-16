@@ -1,14 +1,14 @@
 "use client";
 import React, { useEffect } from "react";
 import Link from "next/link";
-import { account } from "../utils/passkey-kit";
+import { account, server } from "../utils/passkey-kit";
 import { useKeyIdStore } from "../store/keyId";
 import { useContractIdStore } from "../store/contractId";
 import { truncate } from "../utils/base";
 import { useAuthStore } from "../store/auth";
+import { Key } from "@solarpunkltd/passkey-kit";
 
 export default function Header() {
-
   const contractId = useContractIdStore((state) => state.contractId);
   const updateContractId = useContractIdStore((state) => state.setContractId);
 
@@ -16,6 +16,12 @@ export default function Header() {
 
   const updateShowAuth = useAuthStore((state) => state.setShowAuth);
   const key = useAuthStore((state) => state.key);
+
+  const saveKey = (key: Key, contractId: string) => {
+    updateKeyId(key.keyIdBase64);
+    localStorage.setItem("ssd:keyId", key.keyIdBase64);
+    updateContractId(contractId);
+  };
 
   useEffect(() => {
     if (localStorage.hasOwnProperty("ssd:keyId")) {
@@ -25,15 +31,34 @@ export default function Header() {
     return () => {};
   }, []);
 
+  useEffect(() => {
+    if (key) {
+      account.connectWallet(key.keyId).then((cid) => {
+        const contractId = cid;
+
+        if (!contractId) {
+          account
+            .createWallet(key)
+            .then((res) => {
+              console.log("Create try:", res);
+              saveKey(key, res.contractId);
+              server.send(res.signedTx).then(() => {
+                saveKey(key, res.contractId);
+              });
+            })
+            .catch((err) => {
+              console.error("Error creating wallet:", err);
+            });
+        } else {
+          saveKey(key, contractId);
+        }
+      });
+    }
+  }, [key]);
 
   async function login() {
     updateShowAuth(true);
-
-    if (key) {
-      await account.connectWallet(key.keyId);
-    }
   }
-
 
   async function logout() {
     updateContractId("");

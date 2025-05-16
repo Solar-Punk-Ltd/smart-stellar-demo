@@ -443,7 +443,19 @@
     passkey-kit-sdk "workspace:*"
     sac-sdk "workspace:*"
 
-"@solarpunkltd/passkey@^0.4.4":
+"@solarpunkltd/passkey-kit@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@solarpunkltd/passkey-kit/-/passkey-kit-0.0.6.tgz#bb97d30d8e77f51734ba127dacd67e9ad30e3822"
+  integrity sha512-hxY5HrMigLVy5MLEhxm2BdueWt77JWwjQ0n/G848C+cfkRKo/BQl1yhRhLnI1jLEHgV1RmgR74U0B7RFW2LLCw==
+  dependencies:
+    "@simplewebauthn/browser" "^13.1.0"
+    "@stellar/stellar-sdk" "^13.3.0"
+    base64url "^3.0.1"
+    buffer "^6.0.3"
+    passkey-kit-sdk "workspace:*"
+    sac-sdk "workspace:*"
+
+"@solarpunkltd/passkey@^0.4.5":
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/@solarpunkltd/passkey/-/passkey-0.4.4.tgz#2bc7caa51bb9837e0d258747fdcb83908dffc2f1"
   integrity sha512-IXWYVoc6kfhpPUXCnOnlmyFVAmCZ3TpvLS4m9haurgEornYmheaQ7PR9xha3MfGJnWP7WsyxdNBNBNyGISFYRA==
