@@ -39,6 +39,7 @@ export default function Header() {
           console.log("bagoy keyId", key.keyIdBase64);
           console.log("bagoy contractId", contractId);
           updateKeyId(key.keyIdBase64);
+          updateContractId(contractId);
         }
       });
     }
