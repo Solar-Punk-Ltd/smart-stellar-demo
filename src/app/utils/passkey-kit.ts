@@ -15,3 +15,4 @@ export const server = new PasskeyServer({
   launchtubeUrl: process.env.NEXT_PUBLIC_LAUNCHTUBE_URL,
   launchtubeJwt: process.env.NEXT_PUBLIC_LAUNCHTUBE_JWT,
 });
+
