@@ -1,10 +1,13 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useState, useEffect } from 'react';
 import {useKeyIdStore} from '../store/keyId';
 import {useContractIdStore} from '../store/contractId';
 import { chat } from "../utils/chat";
 import { account, server } from "../utils/passkey-kit";
+import { getStoredPublicKeys, signWithStoredKey } from '../utils/keypairUtils';
+import { SignerStore } from '@solarpunkltd/passkey-kit';
 
 let sending = false;
+let sessionKey: string | null = null;
 
 export default function MessageForm() {
     const [msg, setMsg] = useState("");
@@ -30,7 +33,23 @@ export default function MessageForm() {
                 msg,
             });
 
-            at = await account.sign(at, { keyId: formKeyId });
+            if (!sessionKey) {
+                const { publicKey } = (await getStoredPublicKeys())[0];
+                const { sequence } = await account.rpc.getLatestLedger()
+                const at = await account.addEd25519(publicKey, undefined, SignerStore.Temporary, sequence + 36000);
+    
+                await account.sign(at, { keyId: formKeyId });
+                const res = await server.send(at.built!);
+                console.log(res);
+            }
+
+            const storedKeys = await getStoredPublicKeys();
+            if (storedKeys.length > 0) {
+                // Use the first stored key for signing
+                at = await signWithStoredKey(storedKeys[0].id, at);
+            } else {
+                at = await account.sign(at, { keyId: formKeyId });
+            }
 
             await server.send(at);
 
