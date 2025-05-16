@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, useEffect } from 'react';
+import React, { FormEvent, useState } from 'react';
 import {useKeyIdStore} from '../store/keyId';
 import {useContractIdStore} from '../store/contractId';
 import { chat } from "../utils/chat";
@@ -7,6 +7,7 @@ import { generateAndStoreKeypair, getStoredPublicKeys, signWithStoredKey } from 
 import { SignerStore } from '@solarpunkltd/passkey-kit';
 
 let sending = false;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 let sessionKey: string | null = null;
 
 export default function MessageForm() {
@@ -14,17 +15,17 @@ export default function MessageForm() {
 
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
-     
-        const formData = new FormData(event.currentTarget)   
+
+        const formData = new FormData(event.currentTarget)
         let msg = formData.get('msg') as string;
         const formKeyId = formData.get('kid') as string;
         const formContractId = formData.get('cid') as string;
-    
+
         if (!formContractId || !formKeyId) return {
             addr: '',
             msg: '',
         };
-    
+
         try {
             sending = true;
 
@@ -43,7 +44,7 @@ export default function MessageForm() {
                       // Check if we already have a session key
                       const existingKeys = await getStoredPublicKeys();
                       console.log('Existing session keys:', existingKeys);
-              
+
                       if (existingKeys.length === 0) {
                         console.log('No session key found, generating new one...');
                         const publicKey = await generateAndStoreKeypair();
@@ -55,7 +56,7 @@ export default function MessageForm() {
                       console.error('Error initializing Stellar session key:', error);
                     }
                   };
-              
+
                 await initSessionKey();
                 const storedKeys = await getStoredPublicKeys();
                 console.log("Stored keys after init:", storedKeys);
@@ -89,7 +90,7 @@ export default function MessageForm() {
             sending = false;
         }
 
-        setMsg("");    
+        setMsg("");
         return {
             addr: formData.get('addr') as string,
             msg: formData.get('msg') as string,

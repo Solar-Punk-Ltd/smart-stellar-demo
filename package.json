@@ -1,7 +1,7 @@
 {
-  "name": "smart-stellar-demo",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@solarpunkltd/smart-stellar-demo",
+  "version": "0.0.1",
+  "private": false,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
