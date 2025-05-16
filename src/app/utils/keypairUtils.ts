@@ -1,6 +1,6 @@
 import { Keypair } from '@stellar/stellar-sdk';
-import { server } from './passkey-kit';
 import { account } from './passkey-kit';
+import { AssembledTransaction } from '@stellar/stellar-sdk/minimal/contract';
 
 // Initialize IndexedDB
 const DB_NAME = 'StellarSessionStore';
@@ -61,7 +61,8 @@ const saveKeypair = async (keypair: Keypair): Promise<string> => {
  * @param keyId The ID of the stored session key to use for signing
  * @param transaction The transaction to sign
  */
-export const signWithStoredKey = async (keyId: string, transaction: any): Promise<any> => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const signWithStoredKey = async (keyId: string, transaction: AssembledTransaction<any>): Promise<AssembledTransaction<any>> => {
   const db = await initDB();
   
   return new Promise((resolve, reject) => {

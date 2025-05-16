@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, useEffect } from 'react';
+import React, { FormEvent, useState } from 'react';
 import {useKeyIdStore} from '../store/keyId';
 import {useContractIdStore} from '../store/contractId';
 import { chat } from "../utils/chat";
@@ -7,7 +7,6 @@ import { generateAndStoreKeypair, getStoredPublicKeys, signWithStoredKey } from 
 import { SignerStore } from '@solarpunkltd/passkey-kit';
 
 let sending = false;
-let sessionKey: string | null = null;
 
 export default function MessageForm() {
     const [msg, setMsg] = useState("");
@@ -66,7 +65,6 @@ export default function MessageForm() {
                 await account.sign(kat, { keyId: formKeyId });
                 const res = await server.send(kat);
                 console.log(res);
-                sessionKey = res.keyId;
             }
 
             const storedKeys2 = await getStoredPublicKeys();
