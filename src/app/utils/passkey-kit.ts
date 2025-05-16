@@ -7,7 +7,7 @@ export const account = new PasskeyKit({
   walletWasmHash: process.env.NEXT_PUBLIC_WALLET_WASM_HASH!,
   timeoutInSeconds: 30,
   challenge: 'randomchallenge',
-  seed: 'randomseed',
+  // seed: 'randomseed',
 });
 
 export const server = new PasskeyServer({
